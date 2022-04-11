@@ -1,0 +1,7 @@
+python3 manage.py makemigrations --dry-run --verbosity 3
+python3 manage.py runserver
+python3 manage.py createsuperuser
+pip install coverage
+coverage run manage.py test
+coverage html
+pip install djangorestframework

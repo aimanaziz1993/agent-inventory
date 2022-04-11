@@ -1,0 +1,6 @@
+*pyc
+__pycache__
+db.sqlite3
+htmlcov
+.DS_store
+media/
