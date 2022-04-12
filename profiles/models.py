@@ -10,12 +10,12 @@ def get_upload_path(instance, filename):
 
 class Profile(models.Model):
     user = models.OneToOneField(NewUser, on_delete=models.CASCADE, related_name="user_profile", primary_key=True)
-    nickname = models.CharField(max_length=50)
+    nickname = models.CharField(max_length=50, null=True)
     firstName = models.CharField(max_length=50)
-    lastName = models.CharField(max_length=50)
+    lastName = models.CharField(max_length=50, null=True)
     photo = models.ImageField(upload_to=get_upload_path, default="profile_photo/avatar.png")
     description = models.TextField(blank=True)
-    phone = models.CharField(max_length=20)
+    phone = models.CharField(max_length=20, null=True)
     email = models.CharField(max_length=100)
     top_seller = models.BooleanField(default=False)
 

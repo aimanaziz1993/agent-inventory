@@ -84,7 +84,7 @@ class Inventory(models.Model):
     status = models.BooleanField(default=False)
     inventory_date = models.DateTimeField(default=timezone.now)
 
-    realtor = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name='realtor')
+    realtor = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name='inventories')
 
     objects = models.Manager() # Default Manager
     listobjects = ListingObjects() # Custom Manager

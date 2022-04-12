@@ -31,9 +31,4 @@ class CustomUserSerializer(serializers.ModelSerializer):
         if password is not None:
             instance.set_password(password)
         instance.save()
-
-        # create one to one profile row to userid
-        profile = Profile()
-        profile.user = instance
-        profile.save()
         return instance

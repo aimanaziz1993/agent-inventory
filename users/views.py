@@ -7,6 +7,8 @@ from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework.permissions import AllowAny, IsAuthenticated, IsAdminUser
 
 from .serializers import CustomUserSerializer
+from profiles.models import Profile
+from profiles.serializers import UserProfileSerializer
 
 
 class CustomUserRegistration(APIView):
@@ -16,6 +18,11 @@ class CustomUserRegistration(APIView):
         serializer = CustomUserSerializer(data=request.data)
         if serializer.is_valid():
             user = serializer.save()
+            profile = Profile()
+            profile.user = user
+            profile.firstName = user.first_name
+            profile.email = user.email
+            profile.save()
             if user:
                 json = serializer.data
                 return Response(json, status=status.HTTP_201_CREATED)
