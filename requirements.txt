@@ -4,11 +4,14 @@ charset-normalizer==2.0.12
 coreapi==2.3.3
 coreschema==0.0.4
 coverage==6.3.2
+dj-database-url==0.5.0
 Django==4.0.3
 django-cors-headers==3.11.0
 django-filter==21.1
+django-heroku==0.3.1
 djangorestframework==3.13.1
 djangorestframework-simplejwt==5.1.0
+gunicorn==20.1.0
 heroku==0.1.4
 idna==3.3
 itypes==1.2.0
@@ -25,3 +28,4 @@ requests==2.27.1
 sqlparse==0.4.2
 uritemplate==4.1.1
 urllib3==1.26.9
+whitenoise==6.0.0
