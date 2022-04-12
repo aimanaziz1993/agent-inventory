@@ -30,4 +30,4 @@ class Profile(models.Model):
     date_hired = models.DateTimeField(default=timezone.now, blank=True)
 
     def __str__(self):
-        return self.nickname
+        return self.email
