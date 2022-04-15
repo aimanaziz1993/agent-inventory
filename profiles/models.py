@@ -6,7 +6,7 @@ from users.models import NewUser
 
 def get_upload_path(instance, filename):
     if instance:
-        return f'profile_photo/user_{instance.nickname}/{filename}'
+        return f'profile_photo/user_{instance.user.user_name}/{filename}'
 
 class Profile(models.Model):
     user = models.OneToOneField(NewUser, on_delete=models.CASCADE, related_name="user_profile", primary_key=True)

@@ -6,7 +6,7 @@ from profiles.models import Profile
 
 def get_upload_path(instance, filename):
     if instance:
-        return f'inventory/user_{instance.realtor.username}/gallery/{filename}'
+        return f'inventory/user_{instance.realtor.user_name}/gallery/{filename}'
 
 class Category(models.Model):
     name = models.CharField(max_length=100)

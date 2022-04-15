@@ -10,5 +10,5 @@ class UserProfileSerializer(serializers.ModelSerializer):
     class Meta:
         model = Profile
         fields = ('user', 'photo', 'nickname', 'firstName', 'lastName', 'description', 'phone', 'email',
-            'facebook', 'instagram', 'youtube', 'linkedin', 'tiktok', 'inventories'
+            'facebook', 'instagram', 'youtube', 'linkedin', 'tiktok', 'is_verified', 'inventories'
         )
