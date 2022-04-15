@@ -16,8 +16,10 @@ class CustomUserRegistration(APIView):
 
     def post(self, request, format='json'):
         serializer = CustomUserSerializer(data=request.data)
+        print(serializer.is_valid())
         if serializer.is_valid():
             user = serializer.save()
+            print(user)
             profile = Profile()
             profile.user = user
             profile.firstName = user.first_name
