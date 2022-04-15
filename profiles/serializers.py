@@ -5,7 +5,7 @@ from inventory_api.serializers import InventorySerializer
 
 class UserProfileSerializer(serializers.ModelSerializer):
 
-    inventories = serializers.StringRelatedField(many=True, read_only=True)
+    # inventories = serializers.StringRelatedField(many=True, read_only=True)
 
     class Meta:
         model = Profile

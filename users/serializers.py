@@ -2,6 +2,8 @@ from rest_framework import serializers
 from profiles.models import Profile
 from users.models import NewUser
 
+from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
+
 
 # class UserSerializer(serializers.ModelSerializer):
 
@@ -10,6 +12,14 @@ from users.models import NewUser
 #         fields = ('id', 'userId', 'nickname', 'firstName', 'lastName', 'photo', 'description', 
 #         'phone', 'email', 'top_seller', 'is_verified')
 
+class CustomUserTokenObtainPairSerializer(TokenObtainPairSerializer):
+
+    def validate(self, attrs):
+        data = super(CustomUserTokenObtainPairSerializer, self).validate(attrs)
+        data.update({'user_name': self.user.user_name})
+        data.update({'email': self.user.email})
+        data.update({'id': self.user.id})
+        return data
 
 class CustomUserSerializer(serializers.ModelSerializer):
     """

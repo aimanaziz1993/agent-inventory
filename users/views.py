@@ -6,7 +6,7 @@ from rest_framework.generics import ListCreateAPIView, RetrieveUpdateAPIView
 from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework.permissions import AllowAny, IsAuthenticated, IsAdminUser
 
-from .serializers import CustomUserSerializer
+from .serializers import CustomUserSerializer, CustomUserTokenObtainPairSerializer
 from profiles.models import Profile
 from profiles.serializers import UserProfileSerializer
 
@@ -27,6 +27,9 @@ class CustomUserRegistration(APIView):
                 json = serializer.data
                 return Response(json, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+class CustomTokenObtainPairView(TokenObtainPairView):
+    serializer_class = CustomUserTokenObtainPairSerializer
 
 class BlacklistTokenUpdateView(APIView):
     permission_classes = [AllowAny]

@@ -18,7 +18,7 @@ urlpatterns = [
     # API V1
     path('api/v1/', include(([
 
-        path('login', TokenObtainPairView.as_view(), name='token_obtain_pair'),
+        # path('login', TokenObtainPairView.as_view(), name='token_obtain_pair'),
         path('login/refresh', TokenRefreshView.as_view(), name='token_refresh'),
 
         path('user/', include('users.urls')),
