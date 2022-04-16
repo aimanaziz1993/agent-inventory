@@ -1,3 +1,4 @@
+from django.forms import ValidationError
 from django.shortcuts import get_object_or_404
 from rest_framework import generics
 from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAuthenticated
@@ -7,6 +8,7 @@ from rest_framework.views import APIView
 from rest_framework.parsers import MultiPartParser, FormParser
 
 from profiles.models import Profile
+from users.models import NewUser
 from .serializers import UserProfileSerializer
 from .permissions import ProfileUserWritePermission
 
