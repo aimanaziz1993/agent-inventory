@@ -11,4 +11,4 @@ class PostUserWritePermission(BasePermission):
             return True
 
         # Only owner of post can have write/update access
-        return obj.realtor == request.user and obj.realtor != request.user.is_staff
+        return obj.realtor == request.user
