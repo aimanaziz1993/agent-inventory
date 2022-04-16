@@ -5,20 +5,29 @@ from rest_framework.response import Response
 from rest_framework import viewsets, filters, status
 from rest_framework.views import APIView
 from rest_framework.parsers import MultiPartParser, FormParser
-from django.db import models
+from django_filters import rest_framework as filters
 
 from inventory.models import Inventory
 from .serializers import InventorySerializer
 from .permissions import PostUserWritePermission
+from .filters import CustomInventoryFilter
+
 
 
 # User read/write permission
 class InventoryList(generics.ListCreateAPIView, PostUserWritePermission):
-    # queryset = Inventory.listobjects.all()
     serializer_class = InventorySerializer
     permission_classes = [IsAuthenticatedOrReadOnly, PostUserWritePermission]
 
+    # Django Filter Backend
+    filter_backends = [filters.DjangoFilterBackend]
+    filterset_class = CustomInventoryFilter
+    # filterset_fields = ['realtor__user__user_name']
+
     def get_queryset(self):
+        user = self.request.user
+        if user.is_authenticated:
+            return Inventory.listobjects.filter(realtor=user)
         return Inventory.listobjects.all()
 
 class InventoryDetail(generics.RetrieveUpdateAPIView, PostUserWritePermission):
