@@ -19,7 +19,7 @@ class InventoryList(generics.ListCreateAPIView, PostUserWritePermission):
     permission_classes = [IsAuthenticatedOrReadOnly, PostUserWritePermission]
 
     def get_queryset(self):
-        return Inventory.objects.all()
+        return Inventory.listobjects.all()
 
 class InventoryDetail(generics.RetrieveUpdateAPIView, PostUserWritePermission):
     queryset = Inventory.objects.all()

@@ -81,7 +81,7 @@ class Inventory(models.Model):
     video = models.URLField(max_length=200, null=True)
 
     is_published = models.BooleanField(default=True)
-    status = models.BooleanField(default=False)
+    status = models.BooleanField(default=True)
     inventory_date = models.DateTimeField(default=timezone.now)
 
     realtor = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name='inventories')
