@@ -16,11 +16,12 @@ from .permissions import ProfileUserWritePermission
 class ProfileView(generics.ListCreateAPIView):
     serializer_class = UserProfileSerializer
     permission_classes = [IsAuthenticatedOrReadOnly]
+    pagination_class = None
 
     def get_queryset(self):
-        if self.request.user:
-            return Profile.objects.filter(user=self.request.user.id)
-
+        user = self.request.user
+        if user.is_authenticated:
+            return Profile.objects.filter(realtor=user)
         return Profile.objects.all()
 
 class ProfileDetail(generics.RetrieveUpdateAPIView):
