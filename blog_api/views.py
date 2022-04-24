@@ -15,9 +15,10 @@ from .permissions import PostUserWritePermission
 class PostList(generics.ListAPIView):
     serializer_class = PostSerializer
     permission_classes = [IsAuthenticatedOrReadOnly]
+    pagination_class = None
 
     def get_queryset(self):
-        return Post.postobjects.all()
+        return Post.postobjects.all().order_by('published')
 
 class PostDetail(generics.RetrieveAPIView):
     serializer_class = PostSerializer
@@ -31,6 +32,7 @@ class PostListDetailfilter(generics.ListAPIView):
     serializer_class = PostSerializer
     filter_backends = [filters.SearchFilter]
     search_fields = ['^slug', '^title']
+    pagination_class = None
 
     # '^' Starts-with search.
     # '=' Exact matches.

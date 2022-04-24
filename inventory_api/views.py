@@ -27,8 +27,8 @@ class InventoryList(generics.ListCreateAPIView, PostUserWritePermission):
     def get_queryset(self):
         user = self.request.user
         if user.is_authenticated:
-            return Inventory.listobjects.filter(realtor=user)
-        return Inventory.listobjects.all()
+            return Inventory.listobjects.filter(realtor=user).order_by('-inventory_date')
+        return Inventory.listobjects.all().order_by('-inventory_date')
 
 class InventoryDetail(generics.RetrieveUpdateAPIView, PostUserWritePermission):
     queryset = Inventory.objects.all()
