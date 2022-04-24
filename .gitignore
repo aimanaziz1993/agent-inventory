@@ -4,3 +4,4 @@ db.sqlite3
 htmlcov
 .DS_store
 media/
+venv/
