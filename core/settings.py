@@ -160,6 +160,7 @@ REST_FRAMEWORK = {
 FILTERS_DEFAULT_LOOKUP_EXPR = 'icontains'
 
 CORS_ALLOWED_ORIGINS = [
+    "https://onedreamproperty.com.my/",
     "http://127.0.0.1:3000",
     "http://localhost:3000",
 ]
