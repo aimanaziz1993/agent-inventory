@@ -27,7 +27,8 @@ SECRET_KEY = 'mm3a((@)#f%sbqjedxgcwta=^1r%)dsql131es!)l7o7ockmku'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['*']
+# ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['onedream.dynamicdigital.guru', 'localhost']
 
 
 # Application definition
@@ -90,8 +91,14 @@ WSGI_APPLICATION = 'core.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+	'ENGINE': 'django.db.backends.postgresql_psycopg2',
+	'NAME': 'agent_inventory',
+	'USER': 'agent2022',
+	'PASSWORD': 'agent1234$#@!',
+	'HOST': 'localhost',
+	'PORT': '',
+        # 'ENGINE': 'django.db.backends.sqlite3',
+        # 'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
 
@@ -133,6 +140,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 # MEDIA_ROOT = os.path.join(BASE_DIR, 'static')
 
 # Media Settings
@@ -153,13 +161,15 @@ REST_FRAMEWORK = {
     ),
     'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend'],
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
-    'PAGE_SIZE': 2,
+    'PAGE_SIZE': 250,
     'DEFAULT_SCHEMA_CLASS': 'rest_framework.schemas.coreapi.AutoSchema',
 }
 
 FILTERS_DEFAULT_LOOKUP_EXPR = 'icontains'
-
+CORS_ORIGIN_ALLOW_ALL = True
 CORS_ALLOWED_ORIGINS = [
+    "https://onedreamproperty.com.my",
+    #"http://onedreamproperty.com.my",
     "http://127.0.0.1:3000",
     "http://localhost:3000",
 ]

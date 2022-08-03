@@ -30,10 +30,10 @@ class InventoryList(generics.ListCreateAPIView, PostUserWritePermission):
             return Inventory.listobjects.filter(realtor=user).order_by('-inventory_date')
         return Inventory.listobjects.all().order_by('-inventory_date')
 
-class InventoryDetail(generics.RetrieveUpdateAPIView, PostUserWritePermission):
+class InventoryDetail(generics.RetrieveUpdateDestroyAPIView, PostUserWritePermission):
     queryset = Inventory.objects.all()
     serializer_class = InventorySerializer
-    permission_classes = [PostUserWritePermission]
+    permission_classes = [IsAuthenticatedOrReadOnly, PostUserWritePermission]
     lookup_field = 'id'
 
 # Public
