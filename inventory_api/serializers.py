@@ -1,13 +1,18 @@
 from rest_framework import serializers
 
-from inventory.models import Category, Inventory
+from inventory.models import Category, Inventory, PropertyType
 
+
+class PropertyTypeSerializer(serializers.ModelSerializer):
+   class Meta:
+        model = PropertyType
+        fields = ('id', 'name')
 
 class CategorySerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Category
-        fields = ('name')
+        fields = ('id', 'name')
 
 class InventorySerializer(serializers.ModelSerializer):
     user_name = serializers.CharField(source='realtor.user.user_name', required=False)

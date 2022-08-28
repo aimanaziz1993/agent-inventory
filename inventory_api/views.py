@@ -7,12 +7,20 @@ from rest_framework.views import APIView
 from rest_framework.parsers import MultiPartParser, FormParser
 from django_filters import rest_framework as filters
 
-from inventory.models import Inventory
-from .serializers import InventorySerializer
+from inventory.models import Inventory, Category, PropertyType
+from .serializers import InventorySerializer, CategorySerializer, PropertyTypeSerializer
 from .permissions import PostUserWritePermission
 from .filters import CustomInventoryFilter
 
+class PropertyTypeList(generics.ListAPIView):
+    queryset = PropertyType.objects.all()
+    serializer_class = PropertyTypeSerializer
+    model = serializer_class.Meta.model
 
+class CategoryList(generics.ListAPIView):
+    queryset = Category.objects.all()
+    serializer_class = CategorySerializer
+    model = serializer_class.Meta.model
 
 # User read/write permission
 class InventoryList(generics.ListCreateAPIView):
