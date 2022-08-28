@@ -18,7 +18,7 @@ class InventorySerializer(serializers.ModelSerializer):
         'slug', 'title', 'location', 'address', 'city', 'state', 'zipcode',
         'description', 'lat', 'lon',
         'price', 'bedrooms', 'bathrooms', 'floorRange', 'furnishing', 'amenities',
-        'carpark', 'otherInfo',
+        'size', 'carpark', 'otherInfo',
         'featureImage', 'photo_1', 'photo_2', 'photo_3', 'photo_4', 'photo_5',
         'photo_6', 'photo_7', 'photo_8', 'photo_9', 'photo_10', 'video',
         'realtor', 'user_name', 'phone_number', 'inventory_date'

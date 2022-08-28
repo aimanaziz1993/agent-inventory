@@ -32,17 +32,17 @@ class Inventory(models.Model):
         FOR_RENT = 'For Rent'
 
     class TitleType(models.TextChoices):
-        FREEHOLD = 'Freehold'
-        LEASEHOLD = 'Leasehold'
+        STRATA = 'Strata'
+        LAND = 'Land'
 
     class Furnishing(models.TextChoices):
-        FULLY_FURNISH = 'Freehold'
+        FULLY_FURNISH = 'Fully furnish'
         PARTIAL_FURNISH = 'Partial'
         NONE = 'None'
 
     category = models.ForeignKey(Category, on_delete=models.PROTECT, default=1, related_name="category")
     propertyType = models.ForeignKey(PropertyType, on_delete=models.PROTECT, default=1)
-    propertyTitle = models.CharField(max_length=50, choices=TitleType.choices, default=TitleType.FREEHOLD)
+    propertyTitle = models.CharField(max_length=50, choices=TitleType.choices, default=TitleType.STRATA)
     saleType = models.CharField(max_length=50, choices=SaleType.choices, default=SaleType.FOR_SALE)
     rentalDeposit = models.CharField(_("Rental Deposit"), max_length=50, null=True)
     tenure = models.BooleanField(default=False)
@@ -61,7 +61,8 @@ class Inventory(models.Model):
     price = models.IntegerField()
     bedrooms = models.IntegerField()
     bathrooms = models.DecimalField(max_digits=2, decimal_places=1)
-    floorRange = models.IntegerField()
+    floorRange = models.IntegerField(null=True, blank=True)
+    size = models.IntegerField(null=True, blank=True)
     furnishing = models.CharField(max_length=50,choices=Furnishing.choices, default=Furnishing.NONE)
     amenities = models.CharField(max_length=200, null=True)
     carpark = models.IntegerField()
