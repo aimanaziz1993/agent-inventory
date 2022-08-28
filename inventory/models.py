@@ -52,7 +52,7 @@ class Inventory(models.Model):
     address = models.CharField(max_length=150)
     location = models.CharField(max_length=100, null=True)
     city = models.CharField(max_length=100)
-    state = models.CharField(max_length=100)
+    state = models.CharField(max_length=100, null=True, blank=True)
     zipcode = models.CharField(max_length=15)
     description = models.TextField(blank=True)
     lat = models.DecimalField(_("Latitude"), max_digits=9, decimal_places=6, null=True)
