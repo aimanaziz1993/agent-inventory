@@ -4,7 +4,7 @@ from inventory.models import Category, Inventory, PropertyType
 
 
 class PropertyTypeSerializer(serializers.ModelSerializer):
-   class Meta:
+    class Meta:
         model = PropertyType
         fields = ('id', 'name')
 

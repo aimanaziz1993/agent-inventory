@@ -12,15 +12,19 @@ from .serializers import InventorySerializer, CategorySerializer, PropertyTypeSe
 from .permissions import PostUserWritePermission
 from .filters import CustomInventoryFilter
 
-class PropertyTypeList(generics.ListAPIView):
-    queryset = PropertyType.objects.all()
-    serializer_class = PropertyTypeSerializer
-    model = serializer_class.Meta.model
+class PropertyTypeList(APIView):
+    
+    def get(self, request, format=None):
+        propertytype = PropertyType.objects.all()
+        serializer = PropertyTypeSerializer(propertytype, many=True)
+        return Response(serializer.data)
 
-class CategoryList(generics.ListAPIView):
-    queryset = Category.objects.all()
-    serializer_class = CategorySerializer
-    model = serializer_class.Meta.model
+class CategoryList(APIView):
+
+    def get(self, request, format=None):
+        category = Category.objects.all()
+        serializer = CategorySerializer(category, many=True)
+        return Response(serializer.data)
 
 # User read/write permission
 class InventoryList(generics.ListCreateAPIView):
