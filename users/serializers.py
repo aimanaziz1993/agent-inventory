@@ -9,7 +9,7 @@ from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 
 #     class Meta:
 #         model = UserProfile
-#         fields = ('id', 'userId', 'nickname', 'firstName', 'lastName', 'photo', 'description', 
+#         fields = ('id', 'userId', 'nickname', 'firstName', 'lastName', 'photo', 'description',
 #         'phone', 'email', 'top_seller', 'is_verified')
 
 class CustomUserTokenObtainPairSerializer(TokenObtainPairSerializer):
@@ -21,7 +21,9 @@ class CustomUserTokenObtainPairSerializer(TokenObtainPairSerializer):
         data.update({'id': self.user.id})
         return data
 
+
 class CustomUserSerializer(serializers.ModelSerializer):
+
     """
     Currently unused in preference of the below.
     """
@@ -30,9 +32,10 @@ class CustomUserSerializer(serializers.ModelSerializer):
     password = serializers.CharField(min_length=8, write_only=True)
 
     class Meta:
-        model = NewUser
+
         fields = ('email', 'user_name', 'password')
         extra_kwargs = {'password': {'write_only': True}}
+        model = NewUser
 
     def validate(self, attrs):
 
@@ -40,10 +43,12 @@ class CustomUserSerializer(serializers.ModelSerializer):
         user_name = attrs.get('user_name', '')
 
         if NewUser.objects.filter(email=email).exists():
-            raise serializers.ValidationError({'email': "Email is already in use."})
+            raise serializers.ValidationError(
+                {'email': "Email is already in use."})
 
         if NewUser.objects.filter(user_name=user_name).exists():
-            raise serializers.ValidationError({'user_name': "Username is already in use."})
+            raise serializers.ValidationError(
+                {'user_name': "Username is already in use."})
 
         return super().validate(attrs)
 
@@ -55,3 +60,11 @@ class CustomUserSerializer(serializers.ModelSerializer):
             instance.set_password(password)
         instance.save()
         return instance
+
+
+class UserSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = NewUser
+        fields = ('id', 'is_superuser', 'user_name', 'password', 'first_name',
+                  'email', 'is_staff', 'is_active', 'about')

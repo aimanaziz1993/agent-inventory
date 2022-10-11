@@ -12,12 +12,14 @@ from .serializers import InventorySerializer, CategorySerializer, PropertyTypeSe
 from .permissions import PostUserWritePermission
 from .filters import CustomInventoryFilter
 
+
 class PropertyTypeList(APIView):
-    
+
     def get(self, request, format=None):
         propertytype = PropertyType.objects.all()
         serializer = PropertyTypeSerializer(propertytype, many=True)
         return Response(serializer.data)
+
 
 class CategoryList(APIView):
 
@@ -27,6 +29,8 @@ class CategoryList(APIView):
         return Response(serializer.data)
 
 # User read/write permission
+
+
 class InventoryList(generics.ListCreateAPIView):
     serializer_class = InventorySerializer
     permission_classes = [IsAuthenticatedOrReadOnly]
@@ -42,6 +46,7 @@ class InventoryList(generics.ListCreateAPIView):
             return Inventory.listobjects.filter(realtor=user).order_by('-inventory_date')
         return Inventory.listobjects.all().order_by('-inventory_date')
 
+
 class InventoryDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Inventory.objects.all()
     serializer_class = InventorySerializer
@@ -49,6 +54,8 @@ class InventoryDetail(generics.RetrieveUpdateDestroyAPIView):
     lookup_field = 'id'
 
 # Public
+
+
 class InventoryProfileDetail(generics.RetrieveAPIView):
     serializer_class = InventorySerializer
     permission_classes = [IsAuthenticatedOrReadOnly]
@@ -56,3 +63,23 @@ class InventoryProfileDetail(generics.RetrieveAPIView):
     def get_object(self, queryset=None, **kwargs):
         item = self.kwargs.get('slug')
         return get_object_or_404(Inventory, slug=item)
+
+
+class InvetoryDetailProp(generics.RetrieveUpdateAPIView):
+
+    serializer_class = InventorySerializer
+    permission_classes = [IsAuthenticatedOrReadOnly]
+
+    def get_object(self, queryset=None, **kwargs):
+        item = self.kwargs.get('id')
+        inventory = get_object_or_404(Inventory, id=item)
+
+        # Update the view count on each visit to this post.
+        if inventory:
+            # profile.view_count = profile.view_count + 1
+            # profile.save()
+
+            # Or
+            inventory.update_views()
+
+        return get_object_or_404(Inventory, id=item)

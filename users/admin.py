@@ -28,4 +28,5 @@ class UserAdminConfig(UserAdmin):
          ),
     )
 
+
 admin.site.register(NewUser, UserAdminConfig)

@@ -87,8 +87,15 @@ class Inventory(models.Model):
 
     realtor = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name='inventories')
 
+    view_count = models.IntegerField(default=0)
+
     objects = models.Manager() # Default Manager
     listobjects = ListingObjects() # Custom Manager
 
+    def update_views(self, *args, **kwargs):
+        self.view_count = self.view_count + 1
+        super(Inventory, self).save(*args, **kwargs)
+        
     def __str__(self):
         return str(self.title)
+

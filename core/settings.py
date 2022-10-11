@@ -28,7 +28,7 @@ SECRET_KEY = 'mm3a((@)#f%sbqjedxgcwta=^1r%)dsql131es!)l7o7ockmku'
 DEBUG = True
 
 # ALLOWED_HOSTS = ['*']
-ALLOWED_HOSTS = ['onedream.dynamicdigital.guru', 'localhost']
+ALLOWED_HOSTS = ['onedream.dynamicdigital.guru', 'localhost', '127.0.0.1']
 
 
 # Application definition
@@ -91,12 +91,12 @@ WSGI_APPLICATION = 'core.wsgi.application'
 
 DATABASES = {
     'default': {
-	'ENGINE': 'django.db.backends.postgresql_psycopg2',
-	'NAME': 'agent_inventory',
-	'USER': 'agent2022',
-	'PASSWORD': 'agent1234$#@!',
-	'HOST': 'localhost',
-	'PORT': '',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'agent_inventory',
+        'USER': 'hamirulhafizal',
+        'PASSWORD': '',
+        'HOST': 'localhost',
+        'PORT': '5432',
         # 'ENGINE': 'django.db.backends.sqlite3',
         # 'NAME': BASE_DIR / 'db.sqlite3',
     }
@@ -158,18 +158,20 @@ REST_FRAMEWORK = {
     ],
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_simplejwt.authentication.JWTAuthentication',
+        # 'rest_framework.authentication.BasicAuthentication',
     ),
     'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend'],
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
     'PAGE_SIZE': 250,
     'DEFAULT_SCHEMA_CLASS': 'rest_framework.schemas.coreapi.AutoSchema',
+
 }
 
 FILTERS_DEFAULT_LOOKUP_EXPR = 'icontains'
 CORS_ORIGIN_ALLOW_ALL = True
 CORS_ALLOWED_ORIGINS = [
     "https://onedreamproperty.com.my",
-    #"http://onedreamproperty.com.my",
+    # "http://onedreamproperty.com.my",
     "http://127.0.0.1:3000",
     "http://localhost:3000",
 ]
@@ -193,6 +195,11 @@ SIMPLE_JWT = {
     'TOKEN_TYPE_CLAIM': 'token_type',
 }
 
+EMAIL_HOST = 'smtp.mailtrap.io'
+EMAIL_HOST_USER = '8edf0ecc091b47'
+EMAIL_HOST_PASSWORD = 'c580fcfe6bd172'
+EMAIL_PORT = '2525'
+
 # 2.5MB - 2621440
 # 5MB - 5242880
 # 10MB - 10485760
@@ -201,9 +208,9 @@ SIMPLE_JWT = {
 # 100MB 104857600
 # 250MB - 214958080
 # 500MB - 429916160
-MAX_UPLOAD_SIZE = "5242880"
-FILE_UPLOAD_MAX_MEMORY_SIZE = "20971520"
-DATA_UPLOAD_MAX_MEMORY = "104857600"
+MAX_UPLOAD_SIZE = 5242880
+FILE_UPLOAD_MAX_MEMORY_SIZE = 20971520
+DATA_UPLOAD_MAX_MEMORY = 104857600
 
-import django_heroku
-django_heroku.settings(locals())
+# import django_heroku
+# django_heroku.settings(locals())
