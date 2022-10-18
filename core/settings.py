@@ -171,7 +171,6 @@ FILTERS_DEFAULT_LOOKUP_EXPR = 'icontains'
 CORS_ORIGIN_ALLOW_ALL = True
 CORS_ALLOWED_ORIGINS = [
     "https://onedreamproperty.com.my",
-    # "http://onedreamproperty.com.my",
     "http://127.0.0.1:3000",
     "http://localhost:3000",
 ]
