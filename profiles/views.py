@@ -13,6 +13,8 @@ from .serializers import UserProfileSerializer
 from .permissions import ProfileUserWritePermission
 
 # own user view and create
+
+
 class ProfileView(generics.ListCreateAPIView):
     serializer_class = UserProfileSerializer
     permission_classes = [IsAuthenticatedOrReadOnly]
@@ -24,12 +26,21 @@ class ProfileView(generics.ListCreateAPIView):
             return Profile.objects.filter(realtor=user)
         return Profile.objects.all()
 
+
 class ProfileDetail(generics.RetrieveUpdateAPIView):
     serializer_class = UserProfileSerializer
     permission_classes = [ProfileUserWritePermission]
 
     def get_object(self, queryset=None, **kwargs):
         user_name = self.kwargs.get('user_name')
+        profile = get_object_or_404(Profile, user__user_name=user_name)
+
+        # Update the view count on each visit to this post.
+        if profile:
+            # profile.view_count = profile.view_count + 1
+            # profile.save()
+
+            # Or
+            profile.update_views()
+
         return get_object_or_404(Profile, user__user_name=user_name)
-
-

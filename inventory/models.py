@@ -32,17 +32,17 @@ class Inventory(models.Model):
         FOR_RENT = 'For Rent'
 
     class TitleType(models.TextChoices):
-        FREEHOLD = 'Freehold'
-        LEASEHOLD = 'Leasehold'
+        STRATA = 'Strata'
+        LAND = 'Land'
 
     class Furnishing(models.TextChoices):
-        FULLY_FURNISH = 'Freehold'
+        FULLY_FURNISH = 'Fully furnish'
         PARTIAL_FURNISH = 'Partial'
         NONE = 'None'
 
     category = models.ForeignKey(Category, on_delete=models.PROTECT, default=1, related_name="category")
     propertyType = models.ForeignKey(PropertyType, on_delete=models.PROTECT, default=1)
-    propertyTitle = models.CharField(max_length=50, choices=TitleType.choices, default=TitleType.FREEHOLD)
+    propertyTitle = models.CharField(max_length=50, choices=TitleType.choices, default=TitleType.STRATA)
     saleType = models.CharField(max_length=50, choices=SaleType.choices, default=SaleType.FOR_SALE)
     rentalDeposit = models.CharField(_("Rental Deposit"), max_length=50, null=True)
     tenure = models.BooleanField(default=False)
@@ -52,7 +52,7 @@ class Inventory(models.Model):
     address = models.CharField(max_length=150)
     location = models.CharField(max_length=100, null=True)
     city = models.CharField(max_length=100)
-    state = models.CharField(max_length=100)
+    state = models.CharField(max_length=100, null=True, blank=True)
     zipcode = models.CharField(max_length=15)
     description = models.TextField(blank=True)
     lat = models.DecimalField(_("Latitude"), max_digits=9, decimal_places=6, null=True)
@@ -61,23 +61,24 @@ class Inventory(models.Model):
     price = models.IntegerField()
     bedrooms = models.IntegerField()
     bathrooms = models.DecimalField(max_digits=2, decimal_places=1)
-    floorRange = models.IntegerField()
+    floorRange = models.IntegerField(null=True, blank=True)
+    size = models.IntegerField(null=True, blank=True)
     furnishing = models.CharField(max_length=50,choices=Furnishing.choices, default=Furnishing.NONE)
     amenities = models.CharField(max_length=200, null=True)
     carpark = models.IntegerField()
     otherInfo = models.CharField(max_length=255, null=True)
 
-    featureImage = models.ImageField(_("Featured Image"), upload_to=get_upload_path, default='inventories/featured.jpg')
-    photo_1 = models.ImageField(upload_to=get_upload_path, blank=True)
-    photo_2 = models.ImageField(upload_to=get_upload_path, blank=True)
-    photo_3 = models.ImageField(upload_to=get_upload_path, blank=True)
-    photo_4 = models.ImageField(upload_to=get_upload_path, blank=True)
-    photo_5 = models.ImageField(upload_to=get_upload_path, blank=True)
-    photo_6 = models.ImageField(upload_to=get_upload_path, blank=True)
-    photo_7 = models.ImageField(upload_to=get_upload_path, blank=True)
-    photo_8 = models.ImageField(upload_to=get_upload_path, blank=True)
-    photo_9 = models.ImageField(upload_to=get_upload_path, blank=True)
-    photo_10 = models.ImageField(upload_to=get_upload_path, blank=True)
+    featureImage = models.ImageField(_("Featured Image"), upload_to=get_upload_path, blank=True, null=True)
+    photo_1 = models.ImageField(upload_to=get_upload_path, blank=True, null=True)
+    photo_2 = models.ImageField(upload_to=get_upload_path, blank=True, null=True)
+    photo_3 = models.ImageField(upload_to=get_upload_path, blank=True, null=True)
+    photo_4 = models.ImageField(upload_to=get_upload_path, blank=True, null=True)
+    photo_5 = models.ImageField(upload_to=get_upload_path, blank=True, null=True)
+    photo_6 = models.ImageField(upload_to=get_upload_path, blank=True, null=True)
+    photo_7 = models.ImageField(upload_to=get_upload_path, blank=True, null=True)
+    photo_8 = models.ImageField(upload_to=get_upload_path, blank=True, null=True)
+    photo_9 = models.ImageField(upload_to=get_upload_path, blank=True, null=True)
+    photo_10 = models.ImageField(upload_to=get_upload_path, blank=True, null=True)
     video = models.URLField(max_length=200, null=True)
 
     is_published = models.BooleanField(default=True)
@@ -86,8 +87,15 @@ class Inventory(models.Model):
 
     realtor = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name='inventories')
 
+    view_count = models.IntegerField(default=0)
+
     objects = models.Manager() # Default Manager
     listobjects = ListingObjects() # Custom Manager
 
+    def update_views(self, *args, **kwargs):
+        self.view_count = self.view_count + 1
+        super(Inventory, self).save(*args, **kwargs)
+        
     def __str__(self):
         return str(self.title)
+

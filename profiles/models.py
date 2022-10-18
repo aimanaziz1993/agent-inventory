@@ -4,16 +4,20 @@ from django.utils.translation import gettext_lazy as _
 
 from users.models import NewUser
 
+
 def get_upload_path(instance, filename):
     if instance:
         return f'profile_photo/user_{instance.user.user_name}/{filename}'
 
+
 class Profile(models.Model):
-    user = models.OneToOneField(NewUser, on_delete=models.CASCADE, related_name="user_profile", primary_key=True)
+    user = models.OneToOneField(
+        NewUser, on_delete=models.CASCADE, related_name="user_profile", primary_key=True)
     nickname = models.CharField(max_length=50, null=True)
     firstName = models.CharField(max_length=50)
     lastName = models.CharField(max_length=50, null=True)
-    photo = models.ImageField(upload_to=get_upload_path, default="profile_photo/avatar.png")
+    photo = models.ImageField(
+        upload_to=get_upload_path, default="profile_photo/avatar.png")
     description = models.TextField(blank=True)
     phone = models.CharField(max_length=20, null=True)
     email = models.CharField(max_length=100)
@@ -28,6 +32,13 @@ class Profile(models.Model):
     is_verified = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
     date_hired = models.DateTimeField(default=timezone.now, blank=True)
+    view_count = models.IntegerField(default=0)
 
     def __str__(self):
         return self.email
+
+    # An alternative to use to update the view count
+
+    def update_views(self, *args, **kwargs):
+        self.view_count = self.view_count + 1
+        super(Profile, self).save(*args, **kwargs)
