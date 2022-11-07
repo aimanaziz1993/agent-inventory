@@ -5,3 +5,4 @@ pip install coverage
 coverage run manage.py test
 coverage html
 pip install djangorestframework
+source /Users/hamirulhafizal/Desktop/oneDream-django/agent-inventory/myvenv/bin/activate

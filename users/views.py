@@ -24,6 +24,8 @@ from django.core.mail import EmailMultiAlternatives
 
 import random
 
+from django.conf import settings
+
 
 class CustomUserRegistration(APIView):
     permission_classes = [AllowAny]
@@ -83,9 +85,10 @@ class CustomResetPassword(generics.RetrieveUpdateAPIView):
         print('tempPass', tempPass)
 
         subject, from_email, to = 'Reset Password', 'admin@admin.com', email,
+        url = settings.BASE_URL_FE
 
         text_content = 'This is an important message.'
-        html_content = '<p>This is a <strong> temporary link reset password : </strong> <a href=http://127.0.0.1:8000/api/v1/user/set-password/' + \
+        html_content = '<p>This is a <strong> temporary link reset password : </strong> <a href='+ url + 'reset/' + \
             tempPass + '/' + item + '> ' + tempPass + ' </a></p>'
         msg = EmailMultiAlternatives(subject, text_content, from_email, [to])
         msg.attach_alternative(html_content, "text/html")
