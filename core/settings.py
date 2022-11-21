@@ -18,6 +18,7 @@ os.environ.setdefault("DJANGO_SETTINGS_MODULE", "core.settings")
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 BASE_URL_FE = 'https://onedreamproperty.com.my/'
+BASE_URL_FE_DEV = 'http://localhost:3000/'
 
 
 # Quick-start development settings - unsuitable for production
@@ -196,10 +197,19 @@ SIMPLE_JWT = {
     'TOKEN_TYPE_CLAIM': 'token_type',
 }
 
-EMAIL_HOST = 'smtp.mailtrap.io'
-EMAIL_HOST_USER = '8edf0ecc091b47'
-EMAIL_HOST_PASSWORD = 'c580fcfe6bd172'
-EMAIL_PORT = '2525'
+# EMAIL_HOST = 'smtp.mailtrap.io'
+# EMAIL_HOST_USER = '8edf0ecc091b47'
+# EMAIL_HOST_PASSWORD = 'c580fcfe6bd172'
+# EMAIL_PORT = '2525'
+
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_USE_TLS = True
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'web.onedreamproperty@gmail.com'
+EMAIL_HOST_PASSWORD = 'lxtbmjcetynjubjj'
+
 
 # 2.5MB - 2621440
 # 5MB - 5242880
