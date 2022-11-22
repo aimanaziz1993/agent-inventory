@@ -5,4 +5,4 @@ htmlcov
 .DS_store
 media/
 venv/
-core/setting.py
+core/settings.py
