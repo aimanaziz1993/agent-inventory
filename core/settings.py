@@ -96,8 +96,8 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'agent_inventory',
-        'USER': 'hamirulhafizal',
-        'PASSWORD': '',
+        'USER': 'agent2022',
+        'PASSWORD': 'agent1234$#@!',
         'HOST': 'localhost',
         'PORT': '5432',
         # 'ENGINE': 'django.db.backends.sqlite3',

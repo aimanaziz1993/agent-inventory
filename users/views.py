@@ -82,7 +82,7 @@ class CustomResetPassword(generics.RetrieveUpdateAPIView):
         user.set_password(tempPass)
         user.save()
 
-        subject, from_email, to = 'Reset Password', 'admin@admin.com', email,
+        subject, from_email, to = 'Reset Password', 'web.onedreamproperty@gmail.com', email,
         url = settings.BASE_URL_FE
 
         text_content = 'This is an important message.'
