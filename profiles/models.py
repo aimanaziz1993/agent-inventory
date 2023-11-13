@@ -34,6 +34,11 @@ class Profile(models.Model):
     date_hired = models.DateTimeField(default=timezone.now, blank=True)
     view_count = models.IntegerField(default=0)
 
+    # Referal
+    groupId = models.IntegerField(default=0)
+    introducer = models.CharField(max_length=200, null=True)
+    groupId = models.IntegerField(default=0)
+
     def __str__(self):
         return self.email
 
@@ -42,3 +47,20 @@ class Profile(models.Model):
     def update_views(self, *args, **kwargs):
         self.view_count = self.view_count + 1
         super(Profile, self).save(*args, **kwargs)
+
+    def get_introducer_metadata(self, *args, **kwargs):
+        try:
+            introducerData = NewUser.objects.get(username=self.introducer)
+            groupId = introducerData.groupId if introducerData.groupId else None
+            return {
+                'username': introducerData.username,
+                'groupId': groupId
+            }
+        except NewUser.DoesNotExist:
+            return None
+
+    def get_group_id(self, *args, **kwargs):
+        introducer_data = self.get_introducer_metadata()
+        if introducer_data:
+            return introducer_data.get('groupId')
+        return None

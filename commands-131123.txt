@@ -1,0 +1,108 @@
+python3 manage.py makemigrations --dry-run --verbosity 3
+python3 manage.py runserver
+python3 manage.py createsuperuser
+pip install coverage
+coverage run manage.py test
+coverage html
+pip install djangorestframework
+
+1. activekan virtual env 
+- source /Users/hamirulhafizal/Desktop/oneDream-django/agent-inventory/myvenv/bin/activate
+
+2. freeze kan requriment
+- pastu install semula
+
+3. then migrate kalau perlu
+
+4. up serve pgadmin atu mysql
+
+5. up server django
+- python3 manage.py runserver
+
+backup server (kena run kat mac) - dia akn simpan dalam format pgsql
+ssh root@157.230.254.220 "pg_dump -h localhost -U postgres agent_inventory" > agent2.sql
+
+1. open pgadmin - 
+2. kena create db guna terminal -- run command
+--> createdb -U hamirulhafizal(username dalam db) -h localhost -e agent_1(nama database)
+3. check kat pgadmin - database agent_1 dah berjaya create ke ?
+
+4. masukkan file yang kita dah download guna cmnd ssh root ke pgadmin
+---> psql -U hamirulhafizal -h localhost -d agent_1 -f agent2.sql(file yang kita download . pastikan foler sama tempat kita command)
+
+
+CARA MIGRATE DJANGO PGSQL TO MYSQL
+1. tukar engine db Django 
+- core/settings.py
+ - DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql', }}
+
+2. pip install PyMySQL==1.1.0
+3. tambah code kat core/settings.py
+
+- import pymysql
+- pymysql.install_as_MySQLdb()
+
+
+4. Try up python3 manage.py runserver
+
+
+CARA HOST DJANGO DI CPANEL
+
+1. pastikan ada python setup page
+2. clone project
+3. Install requriment.txt
+5. set passenger.wsgi and application nama 
+6. Restart server
+
+
+
+--------------------------------------------------------- masukkan code ni kat passenger.wsgi----------------------------------------
+import os
+import sys
+
+import django.core.handlers.wsgi
+from django.core.wsgi import get_wsgi_application
+import core.wsgi
+# Set up paths and environment variables
+# sys.path.append(os.getcwd())
+os.environ['DJANGO_SETTINGS_MODULE'] = 'core.settings'
+
+# Set script name for the PATH_INFO fix below
+# SCRIPT_NAME = os.getcwd()
+# SCRIPT_NAME = '/home/tripleon/agent-inventory'
+SCRIPT_NAME = '/home/tripleon/agent.tripleonestudio.com'
+
+
+class PassengerPathInfoFix(object):
+    """
+        Sets PATH_INFO from REQUEST_URI because Passenger doesn't provide it.
+    """
+
+    def __init__(self, app):
+        self.app = app
+
+    def __call__(self, environ, start_response):
+        from urllib.parse import unquote
+        environ['SCRIPT_NAME'] = SCRIPT_NAME
+        request_uri = unquote(environ['REQUEST_URI'])
+        script_name = unquote(environ.get('SCRIPT_NAME', ''))
+        offset = request_uri.startswith(
+            script_name) and len(environ['SCRIPT_NAME']) or 0
+        environ['PATH_INFO'] = request_uri[offset:].split('?', 1)[0]
+        return self.app(environ, start_response)
+
+
+# Set the application
+# application = get_wsgi_application()
+applicatio = core.wsgi.application
+application = PassengerPathInfoFix(applicatio)
+
+-------------------------------------------------------- masukkan code ni ----------------------------------------
+
+
+https://medium.com/@pyzimos/deploying-django-web-application-using-cpanel-6687b8057439
+
+
+

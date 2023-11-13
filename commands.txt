@@ -6,3 +6,18 @@ coverage run manage.py test
 coverage html
 pip install djangorestframework
 source /Users/hamirulhafizal/Desktop/oneDream-django/agent-inventory/myvenv/bin/activate
+
+
+MAC 
+source /Users/hamirulhafizal/Desktop/oneDream-django/agent-inventory/myvenv/bin/activate
+
+WINDOW
+myvenv/bin/activate
+
+
+cara untuk upkan local server 
+
+1. pergi ke folder path yang and myvenv(virtual  env)
+2. hidupkan - 
+
+tapi -- pergi terus run kat cmd python3 manage.py runserver
