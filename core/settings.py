@@ -12,6 +12,10 @@ from pathlib import Path
 from datetime import timedelta
 import os
 
+import pymysql
+
+pymysql.install_as_MySQLdb()
+
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "core.settings")
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -31,7 +35,7 @@ SECRET_KEY = 'mm3a((@)#f%sbqjedxgcwta=^1r%)dsql131es!)l7o7ockmku'
 DEBUG = True
 
 # ALLOWED_HOSTS = ['*']
-ALLOWED_HOSTS = ['onedream.dynamicdigital.guru', 'localhost', '127.0.0.1']
+ALLOWED_HOSTS = ['onedream.dynamicdigital.guru', 'localhost', '127.0.0.1','agent.tripleonestudio.com']
 
 
 # Application definition
@@ -93,6 +97,7 @@ WSGI_APPLICATION = 'core.wsgi.application'
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
 DATABASES = {
+<<<<<<< Updated upstream
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'agent_inventory',
@@ -103,6 +108,18 @@ DATABASES = {
         # 'ENGINE': 'django.db.backends.sqlite3',
         # 'NAME': BASE_DIR / 'db.sqlite3',
     }
+=======
+   'default': {
+       'ENGINE': 'django.db.backends.mysql',
+       'NAME': 'tripleon_131123',
+       'USER': 'tripleon_131123',
+       'PASSWORD': '123agent123',
+       'HOST': 'localhost',
+       'PORT': '3306',
+       # 'ENGINE': 'django.db.backends.sqlite3',
+       # 'NAME': BASE_DIR / 'db.sqlite3',
+   }
+>>>>>>> Stashed changes
 }
 
 
