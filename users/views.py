@@ -20,9 +20,11 @@ from rest_framework import generics
 
 # from django.core.mail import send_mail
 
-from django.core.mail import EmailMultiAlternatives
+from django.core.mail import send_mail, EmailMultiAlternatives
 
 import random
+
+from django.conf import settings
 
 
 class CustomUserRegistration(APIView):
@@ -80,13 +82,12 @@ class CustomResetPassword(generics.RetrieveUpdateAPIView):
         user.set_password(tempPass)
         user.save()
 
-        print('tempPass', tempPass)
-
-        subject, from_email, to = 'Reset Password', 'admin@admin.com', email,
+        subject, from_email, to = 'Reset Password', 'web.onedreamproperty@gmail.com', email,
+        url = settings.BASE_URL_FE
 
         text_content = 'This is an important message.'
-        html_content = '<p>This is a <strong> temporary link reset password : </strong> <a href=http://127.0.0.1:8000/api/v1/user/set-password/' + \
-            tempPass + '/' + item + '> ' + tempPass + ' </a></p>'
+        html_content = '<p>This is a <strong> temporary link reset password : </strong> <a href=' + url + 'reset/?tem=' + \
+            tempPass + '&user=' + item + '> ' + tempPass + ' </a></p>'
         msg = EmailMultiAlternatives(subject, text_content, from_email, [to])
         msg.attach_alternative(html_content, "text/html")
         msg.send()
@@ -110,6 +111,8 @@ class CustomNewPassword(generics.RetrieveUpdateAPIView):
 
             user.set_password(dataBody)
             user.save()
-            return Response(status=status.HTTP_205_RESET_CONTENT)
+            userJson = UserSerializer(user)
+
+            return JsonResponse(userJson.data, status=201)
         else:
             return Response(status=status.HTTP_400_BAD_REQUEST)
