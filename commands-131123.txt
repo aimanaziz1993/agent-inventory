@@ -7,7 +7,23 @@ coverage html
 pip install djangorestframework
 
 1. activekan virtual env 
-- source /Users/hamirulhafizal/Desktop/oneDream-django/agent-inventory/myvenv/bin/activate
+- source /Users/hamirulhafizal/Desktop/oneDream-django/agent-inventory/myvenv/bin/activate (mac os)
+- (window PowerShell)
+    - setup Venv kat local
+    - python3 -m venv namavirtual(myvenv)
+    -   # From command prompt
+            myvenv\bin\activate.bat
+        # From power shell
+            myvenv\Scripts\Activate.ps1
+
+OS	SHELL	COMMAND
+Unix, Linux, or MacOS	bash shell	source /path/to/venv/bin/activate
+Unix, Linux, or MacOS	csh shell	source /path/to/venv/bin/activate.csh
+Unix, Linux, or MacOS	fish shell	source /path/to/venv/bin/activate.fish
+
+Windows	Command Prompt	\path\to\venv\Scripts\activate.bat
+Windows	PowerShell	\path\to\venv\Scripts\Activate.ps1
+
 
 2. freeze kan requriment
 - pastu install semula
