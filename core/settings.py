@@ -98,31 +98,29 @@ WSGI_APPLICATION = 'core.wsgi.application'
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
 # DEV - local server - window
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': '131123',
-        'USER': 'root',
-        'PASSWORD': '',
-        'HOST': 'localhost',
-        'PORT': '3306',
-        # 'ENGINE': 'django.db.backends.sqlite3',
-        # 'NAME': BASE_DIR / 'db.sqlite3',
-    }
-}
-
-# DEV - SF server
 # DATABASES = {
-
 #     'default': {
 #         'ENGINE': 'django.db.backends.mysql',
-#         'NAME': 'tripleon_131123',
-#         'USER': 'tripleon_131123',
-#         'PASSWORD': '123agent123',
+#         'NAME': '131123',
+#         'USER': 'root',
+#         'PASSWORD': '',
 #         'HOST': 'localhost',
 #         'PORT': '3306',
 #     }
 # }
+
+# DEV - SF server
+DATABASES = {
+
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'tripleon_131123',
+        'USER': 'tripleon_131123',
+        'PASSWORD': '123agent123',
+        'HOST': 'localhost',
+        'PORT': '3306',
+    }
+}
 
 # PROD
 # DATABASES = {
